@@ -1,6 +1,9 @@
 { "name" : "zeit-demo",
  "version" : "0.1.1",
  "description" : "Test",
+ "now": {
+    "alias": "zealias01"
+ },
  "scripts": {
     "start": "node src/app.js"
  }
