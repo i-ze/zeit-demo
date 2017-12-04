@@ -1,0 +1,15 @@
+before_install:
+#- sudo apt-get update -qq
+
+install:
+- echo "Starting"
+- ./scripts/deploy.sh
+    
+after_script: # here's a build step block
+- echo "We can put normal shell commands here"
+- echo "more shell commands here"
+
+notifications: # set notification options
+  email:
+    recipients:
+      - ze@iodrift.com
