@@ -15,7 +15,7 @@ http.createServer(function (req, res) {
 }).listen(8080);
 
 
-function loadAscii(text, callback) {
+function loadAscii(text, loadCallback) {
 var http = require('http');
 
 var options = {
@@ -34,7 +34,7 @@ callback = function(response) {
   //the whole response has been recieved, so we just print it out here
   response.on('end', function () {
     console.log("loaded ascii: " + str);
-    callback(str);
+    loadCallback(str);
   });
 }
 
