@@ -29,7 +29,7 @@ var http = require('http');
 
 var options = {
   host: 'artii.herokuapp.com',
-  path: '/make?text=' + text
+  path: '/make?text=' + encodeURIComponent(text)
 };
 
 callback = function(response) {
