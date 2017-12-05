@@ -12,7 +12,7 @@ http.createServer(function (req, res) {
     console.log("provided text param", text);
     loadAscii(text, function(asciiText) {
         //res.end('Hello <b>World</b>!!!  env var "foobar":' + process.env.foobar);
-        htmlText = asciiText.replace(/\s/g, '&nbsp;');
+        htmlText = asciiText.replace(/ /g, '&nbsp;');
         htmlText = htmlText.replace(/\n/g, '<br />');
         res.end('<body style="font-family: monospace;"> Result: </br>' + htmlText + '</body>');
     })
