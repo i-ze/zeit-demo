@@ -3,7 +3,10 @@ var http = require('http');
 http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     console.log("proc.env.foobar", process.env.foobar);
-    var text = req.query.text; 
+    var text ="missing";
+    if (!!req.query) {
+	text = req.query.text; 
+    } 
     console.log("provided text param", text);
     loadAscii(text, function(asciiText) {
         //res.end('Hello <b>World</b>!!!  env var "foobar":' + process.env.foobar);
@@ -30,7 +33,7 @@ callback = function(response) {
 
   //the whole response has been recieved, so we just print it out here
   response.on('end', function () {
-    console.log(str);
+    console.log("loaded ascii: " + str);
     callback(str);
   });
 }
