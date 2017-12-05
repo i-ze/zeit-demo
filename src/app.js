@@ -6,8 +6,8 @@ http.createServer(function (req, res) {
     var text ="missing";
     url = require('url').parse(req.url, true)
     console.log("query params", url.query);
-    if (url.query.hasOwnProperty("text")) {
-	text = req.query.text; 
+    if (!!url.query) {
+	text = url.query.text; 
     }
     console.log("provided text param", text);
     loadAscii(text, function(asciiText) {
