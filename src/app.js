@@ -1,21 +1,26 @@
 var http = require('http');
 
 http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    console.log("proc.env.foobar", process.env.foobar);
-    var text ="missing";
-    url = require('url').parse(req.url, true)
-    console.log("query params", url.query);
-    if (!!url.query) {
-	text = url.query.text; 
+    try {
+	console.log("proc.env.foobar", process.env.foobar);
+	var text ="missing";
+	url = require('url').parse(req.url, true)
+	console.log("query params", url.query);
+        if (!!url.query) {
+		text = url.query.text; 
+	}
+	console.log("provided text param", text);
+	loadAscii(text, function(asciiText) {
+	    //res.end('Hello <b>World</b>!!!  env var "foobar":' + process.env.foobar);
+		htmlText = asciiText.replace(/ /g, '&nbsp;');
+	    htmlText = htmlText.replace(/\n/g, '<br />');
+    	    res.writeHead(200, {'Content-Type': 'text/html'});
+	    res.end('<body style="font-family: monospace;"> Result: </br>' + htmlText + '</body>');
+        })
+    } catch(e) {
+        res.writeHead(503, {'Content-Type': 'text/html'});
+        res.end('Error: ' + e);
     }
-    console.log("provided text param", text);
-    loadAscii(text, function(asciiText) {
-        //res.end('Hello <b>World</b>!!!  env var "foobar":' + process.env.foobar);
-        htmlText = asciiText.replace(/ /g, '&nbsp;');
-        htmlText = htmlText.replace(/\n/g, '<br />');
-        res.end('<body style="font-family: monospace;"> Result: </br>' + htmlText + '</body>');
-    })
 }).listen(8080);
 
 
