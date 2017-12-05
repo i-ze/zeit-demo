@@ -4,13 +4,15 @@ http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     console.log("proc.env.foobar", process.env.foobar);
     var text ="missing";
-    if (!!req.query) {
+    console.log("query params", req.query);
+    if (req.query.hasOwnProperty("text")) {
 	text = req.query.text; 
-    } 
+    }
     console.log("provided text param", text);
     loadAscii(text, function(asciiText) {
         //res.end('Hello <b>World</b>!!!  env var "foobar":' + process.env.foobar);
-        res.end("Result: </br>" + asciiText);
+        htmlText = asciiText.replace(/\n/g, '<br />');
+        res.end("Result: </br>" + htmlText);
     })
 }).listen(8080);
 
